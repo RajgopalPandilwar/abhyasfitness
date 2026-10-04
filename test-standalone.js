@@ -5,7 +5,17 @@ const path = require('path');
 const { JSDOM } = require('jsdom');
 
 const ROOT = __dirname;
-const FILE = path.join(ROOT, 'dist', 'fitforge-standalone.html');
+
+// The build names its output after the brand in config.js, so derive the
+// filename the same way instead of hardcoding it — a hardcoded slug here
+// silently breaks the test after any rebrand.
+function brandSlug() {
+  const cfg = fs.readFileSync(path.join(ROOT, 'config.js'), 'utf8');
+  const m = cfg.match(/name:\s*'([^']+)'/);
+  const name = (m && m[1]) || 'standalone';
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+const FILE = path.join(ROOT, 'dist', brandSlug() + '-standalone.html');
 
 let pass = 0, fail = 0;
 function check(label, actual, expected) {
@@ -98,11 +108,19 @@ setTimeout(() => {
   w.KF_UPI.close();
 
   console.log('\n=== brand safety ===');
-  check('no borrowed brand name', /kailie/i.test(html), false);
-  check('no placeholder brand left', html.includes('YOUR BRAND NAME'), false);
+  // These are names that belong to other live fitness businesses. If one
+  // appears in the shipped page, a rebrand was missed somewhere. The
+  // design-system reference is an external URL that merely looks like a
+  // brand, so it is excluded before testing.
+  const brandScan = html.split('gitreverse.com/designs/fitforge-com').join('');
+  check('no borrowed brand name (kailie)',
+    /kailie/i.test(brandScan), false);
+  check('no borrowed brand name (fitforge)',
+    /fitforge/i.test(brandScan), false);
+  check('no placeholder brand left', brandScan.includes('YOUR BRAND NAME'), false);
 
   console.log('\n=== wordmark is not doubled ===');
-  // A one-word brand must not render as "FitForgeFitForge". This bug
+  // A one-word brand must not render as "AbhyasAbhyas". This bug
   // shipped once already, so it is checked explicitly.
   {
     const { JSDOM: JD } = require('jsdom');

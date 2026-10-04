@@ -1,5 +1,5 @@
 /* ============================================================
-   FITFORGE — UPI PAYMENTS
+   ABHYAS — UPI PAYMENTS
    Builds upi:// deep links and renders a scannable UPI QR code.
    No backend, no fees, no account. See config.js for setup.
    ============================================================ */
@@ -9,7 +9,7 @@
   var CFG = window.KF_CONFIG || {};
   var U = CFG.payment || {};
   var upiId = (U.upiId || '').trim();
-  var payee = U.payeeName || 'FitForge';
+  var payee = U.payeeName || 'Abhyas';
   var enabled = !!(U.method === 'upi' || U.method === 'both') && !!upiId;
 
   var seq = 0;
@@ -47,7 +47,7 @@
     p.set('pn', payee);
     p.set('cu', 'INR');
     p.set('am', value);
-    p.set('tn', 'FitForge - ' + program);
+    p.set('tn', 'Abhyas - ' + program);
     p.set('tr', ref());
     return 'upi://pay?' + p.toString();
   }
@@ -114,7 +114,7 @@
     var program = els.program.dataset.name || '';
     var subject = 'UPI order ' + value + ' — ' + program;
     var body =
-      'Hi FitForge,\n\n' +
+      'Hi Abhyas,\n\n' +
       'I have paid for ' + program + ' (' + els.amount.textContent + ') by UPI.\n\n' +
       'UPI reference number: ' + value + '\n' +
       'UPI ID paid to: ' + upiId + '\n\n' +

@@ -4,4 +4,4 @@ Allow: /
 # Post-purchase page — no value in search results, keep it out of the index
 Disallow: /thank-you.html
 
-Sitemap: https://rajgopalpandilwar.github.io/fitforge/sitemap.xml
+Sitemap: https://rajgopalpandilwar.github.io/abhyasfitness/sitemap.xml

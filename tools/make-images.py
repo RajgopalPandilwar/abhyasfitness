@@ -93,7 +93,11 @@ def favicon():
     img = Image.new("RGBA", (S, S), BLACK)
     d = ImageDraw.Draw(img)
     d.rectangle([0, 0, S - 1, S - 1], outline=GOLD, width=14)
-    d.text((0, 96), brand[0].upper(), font=font(BE, 340), fill=GOLD, anchor="ma")
+    # anchor "mm" centres the glyph both ways, so x/y must be the middle of
+    # the square. The old anchor "ma" at x=0 pinned the glyph's midpoint to
+    # the left edge and rendered half of the letter off-canvas.
+    d.text((S / 2, S / 2), brand[0].upper(), font=font(BE, 340),
+           fill=GOLD, anchor="mm")
     png = os.path.join(ROOT, "favicon.png")
     img.save(png, "PNG", optimize=True)
     img.resize((256, 256), Image.LANCZOS).save(

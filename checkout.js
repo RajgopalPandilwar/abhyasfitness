@@ -1,5 +1,5 @@
 /* ============================================================
-   FITFORGE — CHECKOUT BEHAVIOUR
+   ABHYAS — CHECKOUT BEHAVIOUR
    Reads window.KF_CONFIG (see config.js) and wires every Buy Now
    button to its payment link. No build step, no dependencies.
    ============================================================ */

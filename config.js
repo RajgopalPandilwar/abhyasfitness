@@ -15,10 +15,12 @@
 window.KF_CONFIG = {
   // ---- BRAND ------------------------------------------------------
   // Your business name. Do NOT reuse an existing fitness brand's
-  // name — 'FitForge' belongs to fitforge.com, an
-  // established coaching business, and is not yours to use.
+  // name — the previous two names used here each collided with a live
+  // business and had to be replaced. Run tools/set-brand.js rather than
+  // editing this by hand: it rewrites every file at once and refuses
+  // names already in use.
   brand: {
-    name: 'FitForge',
+    name: 'Abhyas',
     // Optional: word shown in the logo after the accent colour.
     // Defaults to whatever follows the space in `name`.
   },
@@ -38,7 +40,7 @@ window.KF_CONFIG = {
 
     // Name shown in the payer's UPI app. Set by set-brand.js to your
     // brand name, truncated if long.
-    payeeName: 'FitForge'
+    payeeName: 'Abhyas'
   },
 
   // ---- PRICES -----------------------------------------------------

@@ -1,9 +1,9 @@
-# FitForge
+# Abhyas
 
-Landing page + UPI checkout for FitForge digital training programs.
+Landing page + UPI checkout for Abhyas digital training programs.
 
-**Live:** https://rajgopalpandilwar.github.io/fitforge/
-**Repo:** https://github.com/RajgopalPandilwar/fitforge
+**Live:** https://rajgopalpandilwar.github.io/abhyasfitness/
+**Repo:** https://github.com/RajgopalPandilwar/abhyasfitness
 
 ## Cost
 

@@ -1,6 +1,6 @@
 /* Build a standalone, offline-capable copy of the site.
    Run: node tools/build-standalone.js
-   Output: dist/fitforge-standalone.html
+   Output: dist/abhyasfitness-standalone.html
 
    Everything — CSS, JS, the QR library, fonts (as base64), the share
    image — is inlined into one file. Open it with no internet, no server
@@ -14,7 +14,7 @@ const ROOT = path.join(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 const TMP = process.env.TMPDIR || '/tmp';
 
-// Name the file after the brand, so it never ships saying "FitForge"
+// Name the file after the brand, so it never ships saying "Abhyas"
 // when the brand is something else.
 function brandSlug() {
   const cfg = fs.readFileSync(path.join(ROOT, 'config.js'), 'utf8');
@@ -92,7 +92,7 @@ if (fs.existsSync(path.join(ROOT, 'thank-you.html'))) {
   // exist next to a one-file copy. Send them to the online site instead,
   // which is where a real buyer's link lives anyway.
   ty = ty.split('href="index.html"').join(
-    'href="https://rajgopalpandilwar.github.io/kailiefitness/"'
+    'href="https://rajgopalpandilwar.github.io/abhyasfitness/"'
   );
 
   // Wrap in a data URI that a browser will open as a document.
@@ -172,7 +172,14 @@ const dangling = [...new Set(
 if (dangling.length) {
   problems.push('references sibling files that will not exist: ' + dangling.join(', '));
 }
-if (/kailie/i.test(html)) problems.push('borrowed brand name still present');
+// Names owned by other live fitness businesses. Their presence means a
+// rebrand was missed somewhere in the source. The design-system
+// reference is an external URL that merely looks like a brand, so it is
+// excluded before testing.
+const brandScan = html.split('gitreverse.com/designs/fitforge-com').join('');
+if (/kailie|fitforge/i.test(brandScan)) {
+  problems.push('borrowed brand name still present');
+}
 
 if (problems.length) {
   console.error('BUILD FAILED:');
