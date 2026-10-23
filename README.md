@@ -89,6 +89,30 @@ bundle's "value" figure is the sum of the four solo prices — currently
 `2499.50`) into the bare decimal the UPI spec requires, and rejects anything
 that isn't a usable number so a typo can't turn into a wrong charge.
 
+## Offline arcade
+
+Three files in the repo root give visitors four mini games (Runner, Snake,
+Flappy, Breakout) instead of the browser's error page when they're offline, or
+when a page takes more than 6 seconds to load:
+
+- `arcade.js` — loaded in the `<head>` of `index.html` and `thank-you.html`
+- `arcade-sw.js` — the service worker that decides when to show the games
+- `arcade-offline.html` — the games page itself, self-contained and themed
+
+From [offline-arcade](https://github.com/jagubuilds/offline-arcade) (MIT).
+
+Two things to know:
+
+- It only works for someone who has loaded the site online at least once —
+  the browser has to save the games page first. There is no way around that.
+- This is a project site, so everything lives under `/abhyasfitness/`. Every
+  path starts with `BASE` in `arcade.js` and `arcade-sw.js`; change `BASE` in
+  both files if the repo is ever renamed. Bump `VERSION` in `arcade-sw.js`
+  after editing `arcade-offline.html`, or returning visitors keep the old copy.
+
+The standalone build in `dist/` drops the arcade on purpose: a `file://` page
+has no service worker.
+
 ## Hosting
 
 GitHub Pages on the free plan: no bandwidth cap that matters at this scale, no

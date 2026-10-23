@@ -21,6 +21,11 @@
 <link rel="apple-touch-icon" href="favicon.png" />
 <meta name="theme-color" content="#0A0A0A" />
 
+<!-- Offline arcade: when a visitor is offline or this page is slow, they get four
+     mini games instead of the browser's error page. Keep this early in <head>:
+     a visitor who leaves after a second still needs the games cached. -->
+<script src="arcade.js" async></script>
+
 <!-- Open Graph — how the link looks when shared on WhatsApp/Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Abhyas" />

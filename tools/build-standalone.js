@@ -54,6 +54,11 @@ for (const name of Object.keys(scripts)) {
   );
 }
 
+// The offline arcade needs a server: a service worker, plus a cached games
+// page it can serve. A file:// copy has neither, so the tag is dropped here
+// (and from the inlined thank-you page below) rather than left dangling.
+html = html.replace(/<script src="arcade\.js" async><\/script>\n?/, '');
+
 // ---- 2. Inline the share image as a data URI ---------------------
 const ogB64 = b64(path.join(ROOT, 'og-image.png'));
 html = html.split('og-image.png').join('data:image/png;base64,' + ogB64);
@@ -87,6 +92,9 @@ if (fs.existsSync(path.join(ROOT, 'thank-you.html'))) {
     /<script src="config\.js"><\/script>/,
     '<script>/* config.js */\n' + read('config.js') + '\n</script>'
   );
+
+  // Same reason as the main page: no service worker in a file:// copy.
+  ty = ty.replace(/<script src="arcade\.js" async><\/script>\n?/, '');
 
   // "Back to Programs" must not point at index.html — that file does not
   // exist next to a one-file copy. Send them to the online site instead,
